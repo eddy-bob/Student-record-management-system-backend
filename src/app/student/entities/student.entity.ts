@@ -3,6 +3,7 @@ import { Timestamp } from 'src/database/timestamp.entity';
 import { Entity } from 'typeorm';
 import { CapitalizeTransformer } from 'src/utils/transformers/capitalize';
 import { Options } from 'src/types/student';
+import { Gender } from 'src/types/student';
 
 @Entity()
 export class Student extends Timestamp {
@@ -32,6 +33,10 @@ export class Student extends Timestamp {
     transformer: new CapitalizeTransformer(),
   })
   middleName: string | null;
+  @Column({
+    enum: Gender,
+  })
+  gender: Gender;
   @Column({
     name: 'admission_set',
   })

@@ -97,6 +97,8 @@ export class ResultService {
         session: options.session,
       });
     }
+    // Order by course code
+    queryBuilder.orderBy('course.courseCode', 'ASC');
     return pagination<Result>(queryBuilder, paginationOptions);
   }
 

@@ -34,7 +34,12 @@ export class StudentService {
   }
 
   async findAll(options: FindOptionsWhere<Student>) {
-    return await this.studentRepository.findBy(options);
+    return await this.studentRepository.find({
+      ...options,
+      order: {
+        firstName: 'ASC', // 'ASC' for ascending order
+      },
+    });
   }
 
   async findOne(options: FindOptionsWhere<Student>) {

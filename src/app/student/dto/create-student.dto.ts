@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { Options } from 'src/types/student';
+import { Gender, Options } from 'src/types/student';
 export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
@@ -24,4 +24,8 @@ export class CreateStudentDto {
   @IsEnum(Options)
   @IsOptional()
   option: Options;
+
+  @IsEnum(Gender)
+  @IsNotEmpty()
+  gender: Gender;
 }
