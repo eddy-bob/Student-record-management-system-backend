@@ -1,0 +1,9 @@
+export const DATA_SOURCE = 'DATA_SOURCE';
+export const RATE_LIMIT = 6;
+export const RATE_LIMIT_TIMEOUT = 60000;
+export const CREATE_COURSE = 'CREATE_COURSE';
+export const CREATE_RESULT = 'CREATE_RESULT';
+export const EVENT_QUEUE = 'EVENT_QUEUE';
+export const CREATE_STUDENT = 'CREATE_STUDENT';
+export const CACHE_EXPIRATION = 5000;
+export const CACHE_MAX = 10;
