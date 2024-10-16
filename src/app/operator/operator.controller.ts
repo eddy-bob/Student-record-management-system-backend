@@ -32,7 +32,7 @@ export class OperatorController {
   }
 
   @Delete(':id')
-  update(@Param('id') id: string) {
+  delete(@Param('id') id: string) {
     return this.operatorService.deleteOne(id);
   }
 }

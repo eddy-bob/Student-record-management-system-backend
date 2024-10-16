@@ -26,7 +26,7 @@ export class StudentController {
     return this.studentService.create(createStudentDto);
   }
 
-  @Get()
+  @Get('all')
   @CacheKey('all-students')
   findAll(@Query() options: FindOptionsWhere<Student>) {
     return this.studentService.findAll(options);

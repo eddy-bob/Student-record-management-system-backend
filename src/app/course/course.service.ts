@@ -16,6 +16,7 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject } from '@nestjs/common';
+import { SuccessResponse } from 'src/utils/response';
 
 @Injectable()
 export class CourseService {
@@ -74,6 +75,13 @@ export class CourseService {
     return course;
   }
 
+  async deleteCourse(id: string) {
+    const isCourse = await this.findOne(id);
+    if (!isCourse)
+      throw new NotFoundException(`course with id ${id} does  not exist`);
+    await this.courseRepository.delete(id);
+    return new SuccessResponse({}, 'Course deleted successfully');
+  }
   async update(id: string, updateCourseDto: UpdateCourseDto) {
     const isCourse = await this.findOne(id);
     // delete cached course/courses
