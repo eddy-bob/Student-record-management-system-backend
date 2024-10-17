@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Operator } from './entities/operator.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
@@ -30,8 +30,16 @@ export class OperatorService {
     );
   }
   //TODO CREATE OPERATOR
-  public async create(payload: CreateOperatorDto) {
-    const operator = this.operatorRepository.create(payload);
+  public async create(payload: CreateOperatorDto, user: Operator) {
+    const { adminPassword, ...data } = payload;
+    const operatorData = await this.findOne(user.id);
+
+    const matchPassword = operatorData.matchPassword(adminPassword);
+    if (!matchPassword) {
+      throw new ForbiddenException('Passord does not match admin password');
+    }
+
+    const operator = this.operatorRepository.create(data);
     return await this.operatorRepository.save(operator);
   }
 }

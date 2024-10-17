@@ -13,5 +13,5 @@ export enum Level {
   SECOND = '200 level',
   THIRD = '300 level',
   FOURTH = '400 level',
-  FIFTH = '400 level',
+  FIFTH = '500 level',
 }

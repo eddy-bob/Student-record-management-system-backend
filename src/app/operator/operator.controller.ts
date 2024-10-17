@@ -11,14 +11,18 @@ import { Operator } from './entities/operator.entity';
 import { OperatorService } from './operator.service';
 import { FindOptionsWhere } from 'typeorm';
 import { CreateOperatorDto } from './dto/create-operator.dto';
+import { CurrentUser } from 'src/decorators/user.decorator';
 
 @Controller('operator')
 export class OperatorController {
   constructor(private readonly operatorService: OperatorService) {}
 
   @Post()
-  create(@Body() createOperatorDto: CreateOperatorDto) {
-    return this.operatorService.create(createOperatorDto);
+  create(
+    @Body() createOperatorDto: CreateOperatorDto,
+    @CurrentUser() operator: Operator,
+  ) {
+    return this.operatorService.create(createOperatorDto, operator);
   }
 
   @Get()

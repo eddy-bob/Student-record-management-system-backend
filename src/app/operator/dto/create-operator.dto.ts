@@ -13,4 +13,8 @@ export class CreateOperatorDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  adminPassword: string;
 }
