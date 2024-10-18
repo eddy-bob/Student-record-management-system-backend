@@ -8,6 +8,6 @@ export class UpdateOperatorDto extends OmitType(CreateOperatorDto, [
 ]) {
   @IsOptional()
   @IsString()
-  confirmPassword: string;
+  newPassword: string;
 }
 export class UpdateOperatorAsSuperDto extends CreateOperatorDto {}

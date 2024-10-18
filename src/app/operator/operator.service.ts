@@ -47,21 +47,21 @@ export class OperatorService {
     );
   }
   public async updateSelf(self: Operator, data: UpdateOperatorDto) {
-    const { confirmPassword, ...remaining } = data;
+    const { newPassword, ...remaining } = data;
 
-    if (confirmPassword) {
+    if (newPassword) {
       const user = await this.operatorRepository
         .createQueryBuilder('operator')
         .where('operator.id = :id', { id: self.id })
         .addSelect('operator.password')
         .getOne();
 
-      const isMatch = await user.matchPassword(confirmPassword);
+      const isMatch = await user.matchPassword(remaining.password);
 
       if (!isMatch) {
         throw new ForbiddenException('Incorrect password');
       }
-      user.password = confirmPassword;
+      user.password = newPassword;
       await this.operatorRepository.save(user);
     }
     await this.operatorRepository.update(self.id, remaining);
@@ -76,7 +76,7 @@ export class OperatorService {
       .addSelect('operator.password')
       .getOne();
 
-    const isMatch = await user.matchPassword(adminPassword);
+    const isMatch = await admin.matchPassword(adminPassword);
 
     if (!isMatch) {
       throw new ForbiddenException('Incorrect password');
