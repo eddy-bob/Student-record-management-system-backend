@@ -31,6 +31,7 @@ export class Operator extends Timestamp {
     nullable: false,
   })
   lastName: string;
+
   @Column({
     type: 'varchar',
     nullable: false,

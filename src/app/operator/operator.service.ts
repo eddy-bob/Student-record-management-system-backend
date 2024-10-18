@@ -47,17 +47,39 @@ export class OperatorService {
     );
   }
   public async updateSelf(self: Operator, data: UpdateOperatorDto) {
-    await this.operatorRepository.update(self.id, data);
+    const { confirmPassword, ...remaining } = data;
+
+    if (confirmPassword) {
+      const user = await this.operatorRepository
+        .createQueryBuilder('operator')
+        .where('operator.id = :id', { id: self.id })
+        .addSelect('operator.password')
+        .getOne();
+
+      const isMatch = await user.matchPassword(confirmPassword);
+
+      if (!isMatch) {
+        throw new ForbiddenException('Incorrect password');
+      }
+      user.password = confirmPassword;
+      await this.operatorRepository.save(user);
+    }
+    await this.operatorRepository.update(self.id, remaining);
     return new SuccessResponse({}, `Profile updated successfully`);
   }
   //TODO CREATE OPERATOR
   public async create(payload: CreateOperatorDto, user: Operator) {
     const { adminPassword, ...data } = payload;
-    const operatorData = await this.findOne(user.id);
+    const admin = await this.operatorRepository
+      .createQueryBuilder('operator')
+      .where('operator.id = :id', { id: user.id })
+      .addSelect('operator.password')
+      .getOne();
 
-    const matchPassword = operatorData.matchPassword(adminPassword);
-    if (!matchPassword) {
-      throw new ForbiddenException('Passord does not match admin password');
+    const isMatch = await user.matchPassword(adminPassword);
+
+    if (!isMatch) {
+      throw new ForbiddenException('Incorrect password');
     }
 
     const operator = this.operatorRepository.create(data);

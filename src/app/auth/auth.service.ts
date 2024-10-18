@@ -22,8 +22,8 @@ export class AuthService {
   async validateUser(email: string, enteredPassword: string) {
     const user = await this.operatorRepository
       .createQueryBuilder('operator')
-      .where('user.email = :email', { email })
-      .addSelect('user.password')
+      .where('operator.email = :email', { email })
+      .addSelect('operator.password')
       .getOne();
 
     if (!user) {
