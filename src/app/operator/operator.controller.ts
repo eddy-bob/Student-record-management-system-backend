@@ -51,7 +51,6 @@ export class OperatorController {
   updateSelf(
     @CurrentUser() user: Operator,
     @Body() updateOperatorDto: UpdateOperatorDto,
-    r,
   ) {
     return this.operatorService.updateSelf(user, updateOperatorDto);
   }
