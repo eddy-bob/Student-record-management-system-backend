@@ -12,6 +12,8 @@ export interface Config {
   operator: {
     superAdminEmail: string;
     superAdminPassword: string;
+    superAdminFirstName: string;
+    superAdminLastName: string;
   };
 
   database: {
@@ -60,6 +62,8 @@ export default (): Config => ({
   operator: {
     superAdminEmail: process.env.DB_EMAIL,
     superAdminPassword: process.env.SUPER_PASSWORD,
+    superAdminFirstName: process.env.SUPER_FIRST_NAME,
+    superAdminLastName: process.env.SUPER_LAST_NAME,
   },
   jwt: {
     secret: process.env.JWT_SECRET,

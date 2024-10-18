@@ -20,6 +20,18 @@ export class Operator extends Timestamp {
   })
   role: Role;
   @Column({
+    name: 'first_name',
+    type: 'varchar',
+    nullable: false,
+  })
+  firstName: string;
+  @Column({
+    name: 'last_name',
+    type: 'varchar',
+    nullable: false,
+  })
+  lastName: string;
+  @Column({
     type: 'varchar',
     nullable: false,
     unique: true,

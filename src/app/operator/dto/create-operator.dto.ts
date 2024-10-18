@@ -6,6 +6,14 @@ export class CreateOperatorDto {
   @IsNotEmpty()
   email: string;
 
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
   @IsEnum(Role)
   @IsNotEmpty()
   role: Role;

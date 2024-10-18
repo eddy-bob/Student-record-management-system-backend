@@ -6,6 +6,8 @@ const config = configuration();
 
 export const SUPER_ADMIN: Partial<Operator> = {
   email: config.operator.superAdminEmail,
-  password: config.operator.superAdminEmail,
+  password: config.operator.superAdminPassword,
+  firstName: config.operator.superAdminFirstName,
+  lastName: config.operator.superAdminLastName,
   role: Role.Super,
 };
