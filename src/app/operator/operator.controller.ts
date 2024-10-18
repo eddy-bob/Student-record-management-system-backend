@@ -5,6 +5,7 @@ import {
   Body,
   Delete,
   Param,
+  Patch,
   Query,
 } from '@nestjs/common';
 import { Operator } from './entities/operator.entity';
@@ -12,6 +13,10 @@ import { OperatorService } from './operator.service';
 import { FindOptionsWhere } from 'typeorm';
 import { CreateOperatorDto } from './dto/create-operator.dto';
 import { CurrentUser } from 'src/decorators/user.decorator';
+import {
+  UpdateOperatorAsSuperDto,
+  UpdateOperatorDto,
+} from './dto/update-operator.dto';
 
 @Controller('operator')
 export class OperatorController {
@@ -33,6 +38,22 @@ export class OperatorController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.operatorService.findOne(id);
+  }
+  @Patch(':id')
+  updateOne(
+    @Param('id') id: string,
+    @Body() updateOperatorDto: UpdateOperatorAsSuperDto,
+  ) {
+    return this.operatorService.updateOne(id, updateOperatorDto);
+  }
+
+  @Patch('self')
+  updateSelf(
+    @CurrentUser() user: Operator,
+    @Body() updateOperatorDto: UpdateOperatorDto,
+    r,
+  ) {
+    return this.operatorService.updateSelf(user, updateOperatorDto);
   }
 
   @Delete(':id')

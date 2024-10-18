@@ -1,9 +1,17 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Operator } from './entities/operator.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { SuccessResponse } from 'src/utils/response';
 import { CreateOperatorDto } from './dto/create-operator.dto';
+import {
+  UpdateOperatorAsSuperDto,
+  UpdateOperatorDto,
+} from './dto/update-operator.dto';
 @Injectable()
 export class OperatorService {
   constructor(
@@ -28,6 +36,19 @@ export class OperatorService {
       {},
       `Operator with id ${id} deleted successfully`,
     );
+  }
+  public async updateOne(id: string, data: UpdateOperatorAsSuperDto) {
+    const user = await this.findOne(id);
+    if (!user) throw new NotFoundException('Operator does not exist');
+    await this.operatorRepository.update(user.id, data);
+    return new SuccessResponse(
+      {},
+      `Operator with id ${id} updated successfully`,
+    );
+  }
+  public async updateSelf(self: Operator, data: UpdateOperatorDto) {
+    await this.operatorRepository.update(self.id, data);
+    return new SuccessResponse({}, `Profile updated successfully`);
   }
   //TODO CREATE OPERATOR
   public async create(payload: CreateOperatorDto, user: Operator) {
