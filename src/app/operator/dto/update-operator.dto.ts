@@ -10,4 +10,6 @@ export class UpdateOperatorDto extends OmitType(CreateOperatorDto, [
   @IsString()
   newPassword: string;
 }
-export class UpdateOperatorAsSuperDto extends CreateOperatorDto {}
+export class UpdateOperatorAsSuperDto extends OmitType(CreateOperatorDto, [
+  'adminPassword',
+]) {}
