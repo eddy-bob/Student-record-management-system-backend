@@ -1,7 +1,7 @@
 export enum Role {
-  Super = 'super_admin',
-  Exco = 'deparment_exco',
-  Admin = 'admin',
+  Super = 'Super_admin',
+  Exco = 'Deparment_exco',
+  Admin = 'Admin',
 }
 export enum Action {
   Manage = 'manage',
