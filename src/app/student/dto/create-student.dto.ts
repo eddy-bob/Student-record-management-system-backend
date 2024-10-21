@@ -22,7 +22,7 @@ export class CreateStudentDto {
   admissionSet: string;
 
   @IsEnum(Options)
-  @IsOptional()
+  @IsNotEmpty()
   option: Options;
 
   @IsEnum(Gender)

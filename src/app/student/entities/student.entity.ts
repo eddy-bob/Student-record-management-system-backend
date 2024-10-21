@@ -42,9 +42,8 @@ export class Student extends Timestamp {
   })
   admissionSet: string;
   @Column({
-    nullable: true,
     type: 'enum',
     enum: Options,
   })
-  option: Options | null;
+  option: Options;
 }
