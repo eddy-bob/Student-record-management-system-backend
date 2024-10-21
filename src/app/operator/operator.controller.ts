@@ -39,6 +39,10 @@ export class OperatorController {
   findOne(@Param('id') id: string) {
     return this.operatorService.findOne(id);
   }
+  @Get('profile')
+  fetchOwnProfile(@CurrentUser() operator: Operator) {
+    return operator;
+  }
   @Patch(':id')
   updateOne(
     @Param('id') id: string,
