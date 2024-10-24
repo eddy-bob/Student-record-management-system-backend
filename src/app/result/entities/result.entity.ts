@@ -12,6 +12,7 @@ import { DecimalTransformer } from 'src/utils/transformers/decimal';
 import { Student } from 'src/app/student/entities/student.entity';
 import { Grade } from 'src/types/result';
 import { Course } from 'src/app/course/entities/course.entity';
+import { NotAcceptableException } from '@nestjs/common';
 
 @Entity()
 export class Result extends Timestamp {
@@ -54,7 +55,7 @@ export class Result extends Timestamp {
   private async calculateGrade() {
     if (this.score) {
       switch (true) {
-        case this.score >= 70:
+        case this.score >= 70 && this.score <= 100:
           this.grade = Grade.A;
           break;
         case this.score >= 60 && this.score <= 69:
@@ -69,9 +70,13 @@ export class Result extends Timestamp {
         case this.score >= 40 && this.score <= 44:
           this.grade = Grade.E;
           break;
-        case this.score < 40:
+        case this.score < 40 && this.score >= 0:
           this.grade = Grade.F;
           break;
+        case this.score < 0:
+          throw new NotAcceptableException('Invalid score');
+        case this.score > 100:
+          throw new NotAcceptableException('Invalid score');
       }
     }
   }
