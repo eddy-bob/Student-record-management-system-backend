@@ -10,6 +10,7 @@ import { SuccessResponse } from 'src/utils/response';
 import { CREATE_STUDENT, EVENT_QUEUE } from 'src/constants';
 import { HttpException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { Inject } from '@nestjs/common';
 
 @Injectable()
@@ -24,7 +25,7 @@ export class StudentService {
   async create(createStudentDto: CreateStudentDto[]) {
     try {
       // delete cached students
-      await this.cacheManager.delete(`all-students`);
+      await this.cacheManager.del(`all-students`);
       return (
         await this.queue.add(CREATE_STUDENT, createStudentDto)
       ).finished();
@@ -54,16 +55,16 @@ export class StudentService {
   async update(id: string, updateStudentDto: UpdateStudentDto) {
     const isStudent = await this.findOne({ id });
     // delete cached students
-    await this.cacheManager.delete(`student/${id}`);
-    await this.cacheManager.delete(`all-students`);
+    await this.cacheManager.del(`student/${id}`);
+    await this.cacheManager.del(`all-students`);
     return await this.studentRepository.update(isStudent.id, updateStudentDto);
   }
 
   async remove(id: string) {
     const student = await this.findOne({ id });
     // delete cached students
-    await this.cacheManager.delete(`student/${id}`);
-    await this.cacheManager.delete(`all-students`);
+    await this.cacheManager.del(`student/${id}`);
+    await this.cacheManager.del(`all-students`);
     await this.studentRepository.delete(student.id);
     return new SuccessResponse(
       {},

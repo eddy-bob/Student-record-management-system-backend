@@ -60,7 +60,7 @@ export default (): Config => ({
     sync: process.env.SYNC as unknown as boolean,
   },
   operator: {
-    superAdminEmail: process.env.DB_EMAIL,
+    superAdminEmail: process.env.SUPER_EMAIL,
     superAdminPassword: process.env.SUPER_PASSWORD,
     superAdminFirstName: process.env.SUPER_FIRST_NAME,
     superAdminLastName: process.env.SUPER_LAST_NAME,

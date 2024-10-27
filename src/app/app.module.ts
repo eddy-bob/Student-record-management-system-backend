@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { DatabaseModule } from '../database/database.module';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import configuration from '../config/configuration';
 import { BullModule } from '@nestjs/bull';
 import { RATE_LIMIT, RATE_LIMIT_TIMEOUT } from 'src/constants';
@@ -25,10 +25,15 @@ import { Student } from './student/entities/student.entity';
 import { Course } from './course/entities/course.entity';
 import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
 import { CACHE_EXPIRATION, CACHE_MAX } from 'src/constants';
-import * as redisStore from 'cache-manager-redis-store';
+import redisStore from 'cache-manager-redis-store';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+      load: [configuration],
+    }),
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
       ttl: CACHE_EXPIRATION,
@@ -40,12 +45,7 @@ import * as redisStore from 'cache-manager-redis-store';
     BullModule.forRoot({
       redis: getRedisConfiguration(configuration()),
     }),
-    ConfigModule.forRoot({
-      isGlobal: true,
-      cache: true,
-      expandVariables: true,
-      load: [configuration],
-    }),
+
     ThrottlerModule.forRoot([
       {
         ttl: RATE_LIMIT_TIMEOUT || 60000,

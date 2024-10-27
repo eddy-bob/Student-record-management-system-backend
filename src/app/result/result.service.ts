@@ -12,6 +12,7 @@ import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { Level, Options, Semester } from 'src/types/course';
 import { CREATE_RESULT, EVENT_QUEUE } from 'src/constants';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { Inject } from '@nestjs/common';
 
 @Injectable()

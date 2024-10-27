@@ -15,6 +15,7 @@ import { CREATE_COURSE, EVENT_QUEUE } from 'src/constants';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { Inject } from '@nestjs/common';
 import { SuccessResponse } from 'src/utils/response';
 

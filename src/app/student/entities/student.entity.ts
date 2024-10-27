@@ -10,7 +10,6 @@ export class Student extends Timestamp {
   @PrimaryGeneratedColumn()
   id: string;
   @Column({
-    type: 'alphanum',
     name: 'reg_number',
     unique: true,
   })
@@ -33,14 +32,18 @@ export class Student extends Timestamp {
     transformer: new CapitalizeTransformer(),
   })
   middleName: string | null;
+
   @Column({
+    type: 'enum',
     enum: Gender,
   })
   gender: Gender;
+
   @Column({
     name: 'admission_set',
   })
   admissionSet: string;
+
   @Column({
     type: 'enum',
     enum: Options,

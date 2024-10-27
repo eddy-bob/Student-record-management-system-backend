@@ -40,7 +40,7 @@ export class CaslAbilityFactory {
       cannot(Action.Delete, Course); //cannot delete course
       can(Action.Create, Course); //can write course
       can(Action.Read, Course); //can read student
-      can(Action.Update, Course); //can read student
+      can(Action.Update, Course); //can update student
 
       cannot(Action.Delete, Operator); // cannot delete operator
       cannot(Action.Create, Operator); // cannot create operator
