@@ -6,6 +6,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import express from 'express';
 import { ValidationPipe } from '@nestjs/common';
 import { validationExceptionFactory } from './utils/validation';
+import passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -22,6 +23,11 @@ async function bootstrap() {
     }),
   );
   app.enableCors({ origin: [config.get<string>('debugClientUrl')] });
+  app.set('trust proxy', 1);
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  console.log('rfff');
   await app.listen(port | 3000);
 }
 bootstrap();

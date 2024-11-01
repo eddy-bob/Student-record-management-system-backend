@@ -1,4 +1,9 @@
 import { DataSourceOptions } from 'typeorm';
+import { config as envConfig } from 'dotenv';
+
+import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
+
+envConfig();
 
 export interface Config {
   port: number;
@@ -22,7 +27,7 @@ export interface Config {
     user: string;
     password: string;
     name: string;
-    type: DataSourceOptions;
+    type: MysqlConnectionOptions['type'];
     sync: boolean;
   };
   redis: {
@@ -37,6 +42,7 @@ export interface Config {
     refreshExpiresIn: string;
     cookieExpire: string;
   };
+  passportSessionSecret: string;
 }
 export default (): Config => ({
   port: parseInt(process.env.PORT, 10) || 3000,
@@ -56,7 +62,7 @@ export default (): Config => ({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     name: process.env.DB_NAME,
-    type: process.env.DB_TYPE as unknown as DataSourceOptions,
+    type: process.env.DB_TYPE as MysqlConnectionOptions['type'],
     sync: process.env.SYNC as unknown as boolean,
   },
   operator: {
@@ -72,4 +78,6 @@ export default (): Config => ({
     refreshExpiresIn: process.env.REFRESH_JWT_EXPIRE,
     cookieExpire: process.env.JWT_COOKIE_EXPIRE,
   },
+
+  passportSessionSecret: process.env.PASSPORT_SESSION_SECRET,
 });

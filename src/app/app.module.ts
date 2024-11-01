@@ -18,6 +18,7 @@ import { StudentModule } from './student/student.module';
 import { CourseModule } from './course/course.module';
 import { ResultModule } from './result/result.module';
 import { MessageConsumer } from 'src/message.consumer';
+import { Operator } from './operator/entities/operator.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import type { RedisClientOptions } from 'redis';
 import { Result } from './result/entities/result.entity';
@@ -34,6 +35,7 @@ import redisStore from 'cache-manager-redis-store';
       expandVariables: true,
       load: [configuration],
     }),
+
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
       ttl: CACHE_EXPIRATION,
@@ -52,8 +54,8 @@ import redisStore from 'cache-manager-redis-store';
         limit: RATE_LIMIT || 10,
       },
     ]),
-
     DatabaseModule,
+
     OperatorModule,
     AuthModule,
     StudentModule,

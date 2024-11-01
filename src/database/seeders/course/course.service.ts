@@ -14,7 +14,7 @@ export class CourseSeederService {
   async create() {
     const existingCourses = await this.courseRepository.find();
 
-    if (existingCourses) {
+    if (existingCourses[0]) {
       return existingCourses;
     }
 

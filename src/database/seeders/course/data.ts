@@ -83,14 +83,6 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'MAT 101',
-    title: 'GENERAL MATHEMATICS 1',
-    option: Options.GENERAL,
-    semester: Semester.FIRST,
-    level: Level.FIRST,
-    unit: 3,
-  },
-  {
     courseCode: 'MAT 102',
     title: 'GENERAL MATHEMATICS 2',
     option: Options.GENERAL,
@@ -254,7 +246,7 @@ export const COURSES = [
 
   {
     courseCode: 'GEN 202',
-    title: 'ENGINEER IN SOCIETY',
+    title: 'ENGINEERING MATHEMATICS 2',
     option: Options.GENERAL,
     semester: Semester.SECOND,
     level: Level.SECOND,
@@ -464,89 +456,9 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 490',
-    title: 'INDUSTRIAL TRAINING (SIWES)',
-    option: Options.GENERAL,
-    semester: Semester.SECOND,
-    level: Level.FOURTH,
-    unit: 15,
-  },
-  {
-    courseCode: 'GEN 481',
-    title: 'COMPUTER AIDED DESINGN AND  MANUFACTURING',
-    option: Options.GENERAL,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 2,
-  },
-  {
-    courseCode: 'GEN 491',
-    title: 'TECHNICAL REPORT WRITING',
-    option: Options.TELECOM,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 1,
-  },
-  {
     courseCode: 'GEN 493',
     title: 'ENGINEERING RESEARCH METHOD',
-    option: Options.TELECOM,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
     level: Level.FOURTH,
     unit: 2,
@@ -554,7 +466,7 @@ export const COURSES = [
 
   {
     courseCode: 'EEE 401',
-    title: 'ELECTRICAL ENGINEERING ANALYSIS',
+    title: 'ELECTRICAL ENGINEERING ANALYSIS (ELECTRONICS)',
     option: Options.ELECTRONICS,
     semester: Semester.FIRST,
     level: Level.FOURTH,
@@ -562,8 +474,8 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'EEE 403',
-    title: 'FUNDAMENTALS OF LINEAR SYSTEMS THEORY',
+    courseCode: 'EEE403',
+    title: 'FUNDAMENTALS OF LINEAR SYSTEMS THEORY (ELECTRONICS)',
     option: Options.ELECTRONICS,
     semester: Semester.FIRST,
     level: Level.FOURTH,
@@ -617,33 +529,10 @@ export const COURSES = [
     level: Level.FOURTH,
     unit: 2,
   },
+
   {
-    courseCode: 'GEN 481',
-    title: 'COMPUTER AIDED DESIGN AND MANUFACTURING',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 2,
-  },
-  {
-    courseCode: 'GEN 491',
-    title: 'TECHNICAL REPORT WRITING',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 1,
-  },
-  {
-    courseCode: 'GEN 493',
-    title: 'ENGINEERING RESEARCH METHOD',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 2,
-  },
-  {
-    courseCode: 'EEE 401',
-    title: 'ELECTRICAL ENGINEERING ANALYSIS',
+    courseCode: 'EEE401',
+    title: 'ELECTRICAL ENGINEERING ANALYSIS (POWER)',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FOURTH,
@@ -652,15 +541,15 @@ export const COURSES = [
 
   {
     courseCode: 'EEE 403',
-    title: 'FUNDAMENTAL OF LINEAR SYSTEMS THEORY',
+    title: 'FUNDAMENTALS OF LINEAR SYSTEMS THEORY',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FOURTH,
     unit: 2,
   },
   {
-    courseCode: 'EEE 431',
-    title: 'MICROPROCESSOR SYSTEMS AND UTILIZATION',
+    courseCode: 'EEE431',
+    title: 'MICROPROCESSOR SYSTEMS AND UTILIZATION (POWER)',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FOURTH,
@@ -683,16 +572,16 @@ export const COURSES = [
     unit: 3,
   },
   {
-    courseCode: 'EEE 461',
-    title: 'PROCESS CONTROL',
+    courseCode: 'EEE461',
+    title: 'PROCESS CONTROL (POWER)',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FOURTH,
     unit: 2,
   },
   {
-    courseCode: 'EEE 477',
-    title: 'TELEPHONE SYSTEMS',
+    courseCode: 'EEE477',
+    title: 'TELEPHONE SYSTEMS (POWER)',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FOURTH,
@@ -701,7 +590,7 @@ export const COURSES = [
   {
     courseCode: 'GEN 481',
     title: 'COMPUTER AIDED DESIGN AND MANUFACTURING',
-    option: Options.POWER,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
     level: Level.FOURTH,
     unit: 2,
@@ -709,19 +598,12 @@ export const COURSES = [
   {
     courseCode: 'GEN 491',
     title: 'TECHNICAL REPORT WRITING',
-    option: Options.POWER,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
     level: Level.FOURTH,
     unit: 1,
   },
-  {
-    courseCode: 'GEN 493',
-    title: 'ENGINEERING RESEARCH METHOD',
-    option: Options.POWER,
-    semester: Semester.FIRST,
-    level: Level.FOURTH,
-    unit: 2,
-  },
+
   {
     courseCode: 'GEN 490',
     title: 'INDUSTRIAL TRAINING (SIWES)',
@@ -734,14 +616,14 @@ export const COURSES = [
   {
     courseCode: 'EEE 561',
     title: 'ELECTRICAL ENGINEERING ANALYSIS AND CONTROL SYSTEM DESIGN 2',
-    option: Options.TELECOM,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
     level: Level.FIFTH,
     unit: 3,
   },
   {
-    courseCode: 'EEE 571',
-    title: 'DATA COMMUNICATION',
+    courseCode: 'EEE571',
+    title: 'DATA COMMUNICATION (TELECOM)',
     option: Options.TELECOM,
     semester: Semester.FIRST,
     level: Level.FIFTH,
@@ -774,46 +656,10 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'EEE 581',
-    title: 'SEMINAR',
-    option: Options.TELECOM,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
-    courseCode: 'GEN 591',
-    title: 'ENGINEERING MANAGEMENT AND LAW',
-    option: Options.TELECOM,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
     courseCode: 'EEE 591',
     title: 'PROJECT 1',
-    option: Options.TELECOM,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 3,
-  },
-
-  {
-    courseCode: 'EEE 532',
-    title: 'COMPUTER APPLICATION LAB',
-    option: Options.TELECOM,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 534',
-    title: 'COMPUTER NETWORKS',
-    option: Options.TELECOM,
-    semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 3,
   },
@@ -856,19 +702,10 @@ export const COURSES = [
   {
     courseCode: 'GEN 592',
     title: 'PROFESSIONAL PRACTICE',
-    option: Options.TELECOM,
+    option: Options.GENERAL,
     semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 592',
-    title: 'PROJECT 2',
-    option: Options.TELECOM,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 3,
   },
 
   {
@@ -899,15 +736,6 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'EEE 561',
-    title: 'ELECTRICAL ENGINEERING ANALYSIS AND DESIGN 2',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 3,
-  },
-
-  {
     courseCode: 'EEE 571',
     title: 'DATA COMMUNICATION',
     option: Options.ELECTRONICS,
@@ -919,46 +747,19 @@ export const COURSES = [
   {
     courseCode: 'EEE 581',
     title: 'SEMINAR',
-    option: Options.ELECTRONICS,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
     level: Level.FIFTH,
     unit: 2,
-  },
-
-  {
-    courseCode: 'GEN 591',
-    title: 'ENGINEERING MANAGEMENT AND LAW',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 591',
-    title: 'PROJECT 1',
-    option: Options.ELECTRONICS,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 3,
   },
 
   {
     courseCode: 'EEE 532',
     title: 'COMPUTER APPLICATION LAB',
-    option: Options.ELECTRONICS,
+    option: Options.GENERAL,
     semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 534',
-    title: 'COMPUTER NETWORKS',
-    option: Options.ELECTRONICS,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 3,
   },
 
   {
@@ -998,18 +799,9 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'GEN 592',
-    title: 'PROFESSIONAL PRACTICE',
-    option: Options.ELECTRONICS,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
     courseCode: 'EEE 592',
     title: 'PROJECT 2',
-    option: Options.ELECTRONICS,
+    option: Options.GENERAL,
     semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 3,
@@ -1043,55 +835,19 @@ export const COURSES = [
   },
 
   {
-    courseCode: 'EEE 551',
-    title: 'POWER ELECTRONICS',
+    courseCode: 'EEE551',
+    title: 'POWER ELECTRONICS (POWER)',
     option: Options.POWER,
     semester: Semester.FIRST,
     level: Level.FIFTH,
     unit: 3,
-  },
-
-  {
-    courseCode: 'EEE 561',
-    title: 'ELECTRICAL ENGINEERING ANALYSIS AND CONTROL SYSTEM DESIGN 2',
-    option: Options.POWER,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 3,
-  },
-
-  {
-    courseCode: 'EEE 581',
-    title: 'SEMINAR',
-    option: Options.POWER,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 2,
   },
 
   {
     courseCode: 'GEN 591',
     title: 'ENGINEERING MANAGEMENT AND LAW',
-    option: Options.POWER,
+    option: Options.GENERAL,
     semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 591',
-    title: 'PROJECT 1',
-    option: Options.POWER,
-    semester: Semester.FIRST,
-    level: Level.FIFTH,
-    unit: 3,
-  },
-
-  {
-    courseCode: 'EEE 532',
-    title: 'COMPUTER APPLICATION LAB',
-    option: Options.POWER,
-    semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 2,
   },
@@ -1099,7 +855,7 @@ export const COURSES = [
   {
     courseCode: 'EEE 534',
     title: 'COMPUTER NETWORKS',
-    option: Options.POWER,
+    option: Options.GENERAL,
     semester: Semester.SECOND,
     level: Level.FIFTH,
     unit: 3,
@@ -1135,24 +891,6 @@ export const COURSES = [
   {
     courseCode: 'EEE 548',
     title: 'POWER SYSTEM PROTECTION',
-    option: Options.POWER,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 3,
-  },
-
-  {
-    courseCode: 'GEN 592',
-    title: 'PROFESSIONAL PRACTICE',
-    option: Options.POWER,
-    semester: Semester.SECOND,
-    level: Level.FIFTH,
-    unit: 2,
-  },
-
-  {
-    courseCode: 'EEE 592',
-    title: 'PROJECT 2',
     option: Options.POWER,
     semester: Semester.SECOND,
     level: Level.FIFTH,

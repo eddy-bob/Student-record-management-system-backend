@@ -13,6 +13,7 @@ import * as bcrypt from 'bcryptjs';
 export class Operator extends Timestamp {
   @PrimaryGeneratedColumn()
   id: string;
+
   @Column({
     type: 'enum',
     enum: Role,

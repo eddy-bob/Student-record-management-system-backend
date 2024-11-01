@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 import {
   PipeTransform,
@@ -7,9 +7,9 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { validate } from 'class-validator';
-import { getRepository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
+import { AppDataSource } from 'src/database/ormconfig';
 
 @Injectable()
 export class ObjectValidationPipe implements PipeTransform<any> {
@@ -19,7 +19,7 @@ export class ObjectValidationPipe implements PipeTransform<any> {
     private readonly entity: EntityClassOrSchema,
     private readonly field: string,
   ) {
-    this.repository = getRepository(this.entity);
+    this.repository = AppDataSource.getRepository(this.entity);
   }
 
   async transform(value: any, { metatype }: ArgumentMetadata) {

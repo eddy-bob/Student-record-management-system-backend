@@ -15,14 +15,14 @@ export class Seeder {
       .then((completed) => {
         const dateString = new Date().toLocaleString();
         console.log(
-          `[Seeder] ${process.pid} - ${dateString}    LOG [User] Seeding completed`,
+          `[Seeder] ${process.pid} - ${dateString}    LOG [Operator] Seeding completed`,
         );
         Promise.resolve(completed);
       })
       .catch((error) => {
         const dateString = new Date().toLocaleString();
         console.log(
-          `[Seeder] ${process.pid} - ${dateString}    LOG [User] Seeding failed`,
+          `[Seeder] ${process.pid} - ${dateString}    LOG [Operator] Seeding failed`,
         );
         Promise.reject(error);
       });
@@ -31,14 +31,14 @@ export class Seeder {
       .then((completed) => {
         const dateString = new Date().toLocaleString();
         console.log(
-          `[Seeder] ${process.pid} - ${dateString}    LOG [Fee] Seeding completed`,
+          `[Seeder] ${process.pid} - ${dateString}    LOG [Course] Seeding completed`,
         );
         Promise.resolve(completed);
       })
       .catch((error) => {
         const dateString = new Date().toLocaleString();
         console.log(
-          `[Seeder] ${process.pid} - ${dateString}    LOG [Fee] Seeding failed`,
+          `[Seeder] ${process.pid} - ${dateString}    LOG [Course] Seeding failed`,
         );
         Promise.reject(error);
       });
