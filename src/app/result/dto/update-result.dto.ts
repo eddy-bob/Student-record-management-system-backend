@@ -1,7 +1,7 @@
-import { OmitType } from '@nestjs/mapped-types';
+import { OmitType, PartialType } from '@nestjs/mapped-types';
 import { CreateResultDto } from './create-result.dto';
 
-export class UpdateResultDto extends OmitType(CreateResultDto, [
+export class UpdateResultDto extends PartialType(OmitType(CreateResultDto, [
   'course',
   'student',
-]) {}
+])) {}

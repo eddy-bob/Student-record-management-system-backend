@@ -47,7 +47,7 @@ export class OperatorService {
     );
   }
   public async updateSelf(self: Operator, data: UpdateOperatorDto) {
-    const { newPassword, ...remaining } = data;
+    const { newPassword, password, ...remaining } = data;
 
     if (newPassword) {
       const user = await this.operatorRepository
@@ -55,8 +55,10 @@ export class OperatorService {
         .where('operator.id = :id', { id: self.id })
         .addSelect('operator.password')
         .getOne();
-
-      const isMatch = await user.matchPassword(remaining.password);
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      const isMatch = await user.matchPassword(password);
 
       if (!isMatch) {
         throw new ForbiddenException('Incorrect password');
