@@ -15,6 +15,7 @@ export class AuthController {
   @Post('signin')
   @HttpCode(200)
   signin(@CurrentUser() user: Operator) {
+    console.log(user)
     return this.authService.signin(user);
   }
 }

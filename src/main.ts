@@ -33,7 +33,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      exceptionFactory: validationExceptionFactory,
+    exceptionFactory: validationExceptionFactory,
     }),
   );
   app.enableCors({ origin: [config.get<string>('cors.debugClient')] });
