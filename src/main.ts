@@ -9,7 +9,6 @@ import { validationExceptionFactory } from './utils/validation';
 import passport from 'passport';
 import session from 'express-session';
 
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config: ConfigService = app.get(ConfigService);
@@ -25,22 +24,21 @@ async function bootstrap() {
     }),
   );
   app.enableCors({ origin: [config.get<string>('debugClientUrl')] });
-  app.set('trust proxy', 1);
-    // app.use(
-    //   session({
-    //     secret: config.get<string>('passportSessionSecret'),
-    //     resave: false,
-    //     saveUninitialized: false,
-    //     cookie: {
-    //       secure: false,
-    //       maxAge: 1000 * 60 * 60, // 1 hour
-    //     },
-    //   }),
-    // );
+  const sessionSecret = config.get<string>('passportSessionSecret');
 
+  app.set('trust proxy', 1);
+  app.use(
+    session({
+      secret: sessionSecret,
+      resave: false,
+      saveUninitialized: true,
+      proxy: true,
+      cookie: { secure: true, sameSite: 'none' },
+    }),
+  );
 
   app.use(passport.initialize());
-  // app.use(passport.session());
+  app.use(passport.session());
 
   await app.listen(port || 3000);
 }

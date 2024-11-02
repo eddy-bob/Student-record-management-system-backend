@@ -55,8 +55,8 @@ export class OperatorService {
         .where('operator.id = :id', { id: self.id })
         .addSelect('operator.password')
         .getOne();
-      if (!user) {
-        throw new NotFoundException('User not found');
+      if (!password) {
+        throw new ForbiddenException('Old password is required');
       }
       const isMatch = await user.matchPassword(password);
 
