@@ -47,19 +47,20 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "express-session": "^1.17.3",
+    "helmet": "^8.0.0",
     "install": "^0.13.0",
     "mysql2": "^3.11.3",
     "nanoid": "^5.0.7",
     "nestjs-typeorm-paginate": "^4.0.4",
+    "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20",
     "typeorm-naming-strategies": "^4.1.0",
-    "winston": "^3.15.0",
-    "express-session": "^1.17.3",
-    "passport": "^0.6.0"
+    "winston": "^3.15.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

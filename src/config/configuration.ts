@@ -1,4 +1,3 @@
-import { DataSourceOptions } from 'typeorm';
 import { config as envConfig } from 'dotenv';
 
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
