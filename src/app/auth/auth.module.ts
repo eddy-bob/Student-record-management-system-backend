@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from 'src/guards/local.strategy';
 import { JwtStrategy } from 'src/guards/jwt.strategy';
@@ -24,16 +23,6 @@ import { WinstonLoggerService } from 'src/logger/winston-logger/winston-logger.s
     }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    WinstonLoggerService,
-
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-    LocalStrategy,
-    JwtStrategy,
-  ],
+  providers: [AuthService, WinstonLoggerService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

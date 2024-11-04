@@ -17,16 +17,18 @@ import { AuthModule } from './auth/auth.module';
 import { StudentModule } from './student/student.module';
 import { CourseModule } from './course/course.module';
 import { ResultModule } from './result/result.module';
-import { MessageConsumer } from 'src/message.consumer';
+import { JwtStrategy } from 'src/guards/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import type { RedisClientOptions } from 'redis';
 import { Result } from './result/entities/result.entity';
 import { Student } from './student/entities/student.entity';
 import { Course } from './course/entities/course.entity';
-import { CacheModule, CacheInterceptor } from '@nestjs/cache-manager';
+import { CacheModule} from '@nestjs/cache-manager';
+import { RequestLoggingInterceptor } from 'src/interceptor/request-logging.interceptor';
 import { CACHE_EXPIRATION, CACHE_MAX } from 'src/constants';
 import redisStore from 'cache-manager-redis-store';
-
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { CustomCacheInterceptor } from 'src/interceptor/cache.interceptor';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -35,16 +37,16 @@ import redisStore from 'cache-manager-redis-store';
       load: [configuration],
     }),
 
+    TypeOrmModule.forFeature([Course, Result, Student]),
+    BullModule.forRoot({
+      redis: getRedisConfiguration(configuration()),
+    }),
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
       ttl: CACHE_EXPIRATION,
       max: CACHE_MAX,
       isGlobal: true,
       ...getRedisConfiguration(configuration()),
-    }),
-    TypeOrmModule.forFeature([Course, Result, Student]),
-    BullModule.forRoot({
-      redis: getRedisConfiguration(configuration()),
     }),
 
     ThrottlerModule.forRoot([
@@ -54,7 +56,6 @@ import redisStore from 'cache-manager-redis-store';
       },
     ]),
     DatabaseModule,
-
     OperatorModule,
     AuthModule,
     StudentModule,
@@ -65,13 +66,18 @@ import redisStore from 'cache-manager-redis-store';
   providers: [
     AppService,
     WinstonLoggerService,
+
     {
-      provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor,
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CustomCacheInterceptor,
     },
 
     {

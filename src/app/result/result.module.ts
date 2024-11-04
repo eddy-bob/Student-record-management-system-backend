@@ -8,6 +8,7 @@ import { Course } from '../course/entities/course.entity';
 import { BullModule } from '@nestjs/bull';
 import { EVENT_QUEUE } from 'src/constants';
 import { MessageConsumer } from 'src/message.consumer';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Result, Student, Course]),

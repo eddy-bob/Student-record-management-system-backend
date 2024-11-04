@@ -13,6 +13,7 @@ import { OperatorService } from './operator.service';
 import { FindOptionsWhere } from 'typeorm';
 import { CreateOperatorDto } from './dto/create-operator.dto';
 import { CurrentUser } from 'src/decorators/user.decorator';
+import { Public } from 'src/decorators/public.decorator';
 import {
   UpdateOperatorAsSuperDto,
   UpdateOperatorDto,
@@ -35,15 +36,17 @@ export class OperatorController {
     return this.operatorService.find(options);
   }
 
-  @Get(':id')
+  @Get('single:id')
   findOne(@Param('id') id: string) {
     return this.operatorService.findOne(id);
   }
+
   @Get('profile')
-  fetchOwnProfile(@CurrentUser() operator: Operator) {
+  fetchProfile(@CurrentUser() operator: Operator) {
     return operator;
   }
-  @Patch(':id')
+
+  @Patch('single:id')
   updateOne(
     @Param('id') id: string,
     @Body() updateOperatorDto: UpdateOperatorAsSuperDto,

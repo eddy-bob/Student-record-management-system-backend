@@ -67,7 +67,7 @@ export class OperatorService {
       await this.operatorRepository.save(user);
     }
     await this.operatorRepository.update(self.id, remaining);
-    return new SuccessResponse({}, `Profile updated successfully`);
+    return new SuccessResponse({}, ` updated successfully`);
   }
   //TODO CREATE OPERATOR
   public async create(payload: CreateOperatorDto, user: Operator) {
