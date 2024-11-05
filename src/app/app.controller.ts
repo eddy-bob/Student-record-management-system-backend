@@ -8,7 +8,6 @@ export class AppController {
   @Public()
   @Get('health')
   getHello(): string {
-    console.log('app');
     return this.appService.getHello();
   }
 }

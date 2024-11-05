@@ -3,7 +3,6 @@ import { Role } from 'src/types/operator';
 import configuration from 'src/config/configuration';
 
 const config = configuration();
-console.log(configuration());
 
 export const SUPER_ADMIN: Partial<Operator> = {
   email: config.operator.superAdminEmail,

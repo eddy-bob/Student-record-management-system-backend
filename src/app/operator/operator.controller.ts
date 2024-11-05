@@ -36,7 +36,7 @@ export class OperatorController {
     return this.operatorService.find(options);
   }
 
-  @Get('single:id')
+  @Get('single/:id')
   findOne(@Param('id') id: string) {
     return this.operatorService.findOne(id);
   }
@@ -46,7 +46,7 @@ export class OperatorController {
     return operator;
   }
 
-  @Patch('single:id')
+  @Patch('single/:id')
   updateOne(
     @Param('id') id: string,
     @Body() updateOperatorDto: UpdateOperatorAsSuperDto,
