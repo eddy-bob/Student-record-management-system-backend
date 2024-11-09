@@ -5,7 +5,7 @@ import { Student } from './entities/student.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bull';
 import { EVENT_QUEUE } from 'src/constants';
-
+import { CaslAbilityFactory } from 'src/permission/operator.permission';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Student]),
@@ -15,6 +15,6 @@ import { EVENT_QUEUE } from 'src/constants';
     }),
   ],
   controllers: [StudentController],
-  providers: [StudentService],
+  providers: [StudentService, CaslAbilityFactory],
 })
 export class StudentModule {}

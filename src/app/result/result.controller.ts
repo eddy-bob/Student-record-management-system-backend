@@ -19,7 +19,14 @@ import { ObjectValidationPipe } from 'src/pipes/isValidEntityObject';
 import { Student } from '../student/entities/student.entity';
 import { Course } from '../course/entities/course.entity';
 import { DefaultValuePipe, ParseIntPipe } from '@nestjs/common';
-import { CacheKey } from '@nestjs/cache-manager';
+import { Role } from 'src/types/operator';
+import { Roles } from 'src/decorators/roles.decorator';
+import { PoliciesGuard } from 'src/guards/policy.guard';
+import { UseGuards } from '@nestjs/common';
+import { CheckPolicies } from 'src/decorators/checkPolicy.decorator';
+import { AppAbility } from 'src/permission/operator.permission';
+import { Action } from 'src/types/operator';
+import { Result } from './entities/result.entity';
 @SkipThrottle()
 @Controller('result')
 export class ResultController {
@@ -29,6 +36,9 @@ export class ResultController {
   ) {}
 
   @Post()
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Create, Result))
+  @Roles(Role.Super, Role.Admin)
   @UsePipes(
     new ObjectValidationPipe(Student, 'student'),
     new ObjectValidationPipe(Course, 'course'),
@@ -41,7 +51,9 @@ export class ResultController {
   }
 
   @Get()
-  @CacheKey('all-results')
+  @Roles(Role.Super, Role.Admin)
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Result))
   findAll(
     @Query()
     options: {
@@ -66,16 +78,25 @@ export class ResultController {
   }
 
   @Get(':id')
+  @Roles(Role.Super, Role.Admin)
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Result))
   findOne(@Param('id') id: string) {
     return this.resultService.findOne(id);
   }
 
   @Patch(':id')
+  @Roles(Role.Super, Role.Admin)
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Update, Result))
   update(@Param('id') id: string, @Body() updateResultDto: UpdateResultDto) {
     return this.resultService.update(id, updateResultDto);
   }
 
   @Delete(':id')
+  @Roles(Role.Super, Role.Admin)
+  @UseGuards(PoliciesGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can(Action.Delete, Result))
   remove(@Param('id') id: string) {
     return this.resultService.remove(id);
   }

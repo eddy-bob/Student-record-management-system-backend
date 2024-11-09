@@ -17,18 +17,18 @@ import { AuthModule } from './auth/auth.module';
 import { StudentModule } from './student/student.module';
 import { CourseModule } from './course/course.module';
 import { ResultModule } from './result/result.module';
-import { JwtStrategy } from 'src/guards/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import type { RedisClientOptions } from 'redis';
 import { Result } from './result/entities/result.entity';
 import { Student } from './student/entities/student.entity';
 import { Course } from './course/entities/course.entity';
-import { CacheModule} from '@nestjs/cache-manager';
-import { RequestLoggingInterceptor } from 'src/interceptor/request-logging.interceptor';
+import { CacheModule } from '@nestjs/cache-manager';
 import { CACHE_EXPIRATION, CACHE_MAX } from 'src/constants';
 import redisStore from 'cache-manager-redis-store';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { CaslAbilityFactory } from 'src/permission/operator.permission';
 import { CustomCacheInterceptor } from 'src/interceptor/cache.interceptor';
+import { CustomThrottlerGuard } from 'src/guards/customThrottlerGuard.guard';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -51,7 +51,7 @@ import { CustomCacheInterceptor } from 'src/interceptor/cache.interceptor';
 
     ThrottlerModule.forRoot([
       {
-        ttl: RATE_LIMIT_TIMEOUT || 60000,
+        ttl: RATE_LIMIT_TIMEOUT || 60 * 1000 * 3600,
         limit: RATE_LIMIT || 10,
       },
     ]),
@@ -64,6 +64,7 @@ import { CustomCacheInterceptor } from 'src/interceptor/cache.interceptor';
   ],
   controllers: [AppController],
   providers: [
+    CaslAbilityFactory,
     AppService,
     WinstonLoggerService,
 
@@ -74,6 +75,10 @@ import { CustomCacheInterceptor } from 'src/interceptor/cache.interceptor';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CustomThrottlerGuard,
     },
     {
       provide: APP_INTERCEPTOR,

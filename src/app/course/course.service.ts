@@ -31,7 +31,8 @@ export class CourseService {
   async create(createCourseDto: CreateCourseDto[]) {
     try {
       // delete cached courses so new instance containing new course will be included on next fetch
-      await this.cacheManager.delete(`all-courses`);
+      // console.log(await this.cacheManager.get(`cache:v1/course`));
+      // await this.cacheManager.delete(`cache:v1/course`);
       return (await this.queue.add(CREATE_COURSE, createCourseDto)).finished();
     } catch (error) {
       throw new HttpException(error.message, 500);
@@ -44,23 +45,24 @@ export class CourseService {
   ) {
     // available queries are course and student
     const queryBuilder = this.courseRepository.createQueryBuilder('course');
+    console.log(options);
     if (options.id) {
-      queryBuilder.where('result.id=:id', {
+      queryBuilder.where('course.id=:id', {
         id: options.id,
       });
     }
     if (options.option) {
-      queryBuilder.where('result.option=:option', {
+      queryBuilder.andWhere('course.option=:option', {
         option: options.option,
       });
     }
     if (options.semester) {
-      queryBuilder.where('result.semester=:semester', {
+      queryBuilder.andWhere('course.semester=:semester', {
         semester: options.semester,
       });
     }
     if (options.level) {
-      queryBuilder.where('result.level=:level', {
+      queryBuilder.andWhere('course.level=:level', {
         level: options.level,
       });
     }
@@ -86,11 +88,13 @@ export class CourseService {
   async update(id: string, updateCourseDto: UpdateCourseDto) {
     const isCourse = await this.findOne(id);
     // delete cached course/courses
-    await this.cacheManager.delete(`course/${id}`);
-    await this.cacheManager.delete(`all-courses`);
+    // await this.cacheManager.delete(`cache:v1/course/${id}`);
+    // await this.cacheManager.delete(`cache:v1/course`);
     return await this.courseRepository.update(isCourse.id, {
       ...updateCourseDto,
-      unit: parseInt(updateCourseDto.unit),
+      unit: updateCourseDto.unit
+        ? parseInt(updateCourseDto.unit)
+        : isCourse.unit,
     });
   }
 }

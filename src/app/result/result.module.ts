@@ -8,6 +8,7 @@ import { Course } from '../course/entities/course.entity';
 import { BullModule } from '@nestjs/bull';
 import { EVENT_QUEUE } from 'src/constants';
 import { MessageConsumer } from 'src/message.consumer';
+import { CaslAbilityFactory } from 'src/permission/operator.permission';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { MessageConsumer } from 'src/message.consumer';
     }),
   ],
   controllers: [ResultController],
-  providers: [ResultService, MessageConsumer],
+  providers: [ResultService, MessageConsumer, CaslAbilityFactory],
 })
 export class ResultModule {}

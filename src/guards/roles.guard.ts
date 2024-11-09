@@ -20,6 +20,6 @@ export class RolesGuard {
       return true;
     }
     const { user } = context.switchToHttp().getRequest();
-    return requiredRoles.some((role: Role) => user.roles.includes(role));
+    return requiredRoles.some((role: Role) => user.role === role);
   }
 }

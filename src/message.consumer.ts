@@ -37,12 +37,14 @@ export class MessageConsumer {
         };
       }),
     );
-    return this.courseRepository.create(courses);
+    const data = this.courseRepository.create(courses);
+    return await this.courseRepository.save(data);
   }
   @Process(CREATE_STUDENT)
   async readCreateStudentJob(job: Job<CreateStudentDto[]>) {
     const jobData = job.data;
-    return this.studentRepository.create(jobData);
+    const students = this.studentRepository.create(jobData);
+    return await this.studentRepository.save(students);
   }
   @Process(CREATE_RESULT)
   async readCreateResultJob(job: Job<CreateResultDto[]>) {
@@ -64,6 +66,7 @@ export class MessageConsumer {
         };
       }),
     );
-    return this.resultRepository.create(results);
+    const data = this.resultRepository.create(results);
+    return await this.resultRepository.save(data);
   }
 }

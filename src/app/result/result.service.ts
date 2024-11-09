@@ -64,37 +64,37 @@ export class ResultService {
       });
     }
     if (options.student) {
-      queryBuilder.where('result.student =:studentId', {
+      queryBuilder.andWhere('result.student =:studentId', {
         studentId: options.student,
       });
     }
     if (options.courseCode) {
-      queryBuilder.where('result.course.courseCode =:courseCode', {
+      queryBuilder.andWhere('result.course.courseCode =:courseCode', {
         courseCode: options.courseCode,
       });
     }
     if (options.regNumber) {
-      queryBuilder.where('result.student.regNumber =:regNumber', {
+      queryBuilder.andWhere('result.student.regNumber =:regNumber', {
         regNumber: options.regNumber,
       });
     }
     if (options.semester) {
-      queryBuilder.where('result.course.semester =:semester', {
+      queryBuilder.andWhere('result.course.semester =:semester', {
         Semester: options.semester,
       });
     }
     if (options.level) {
-      queryBuilder.where('result.course.level =:level', {
+      queryBuilder.andWhere('result.course.level =:level', {
         level: options.level,
       });
     }
     if (options.option) {
-      queryBuilder.where('result.course.option =:option', {
+      queryBuilder.andWhere('result.course.option =:option', {
         option: options.option,
       });
     }
     if (options.session) {
-      queryBuilder.where('result.session=:session', {
+      queryBuilder.andWhere('result.session=:session', {
         session: options.session,
       });
     }

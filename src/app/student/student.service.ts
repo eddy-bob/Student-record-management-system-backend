@@ -12,7 +12,8 @@ import { HttpException } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { Inject } from '@nestjs/common';
-
+import pagination from 'src/utils/paginate';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 @Injectable()
 export class StudentService {
   constructor(
@@ -24,8 +25,6 @@ export class StudentService {
   ) {}
   async create(createStudentDto: CreateStudentDto[]) {
     try {
-      // delete cached students
-      await this.cacheManager.del(`all-students`);
       return (
         await this.queue.add(CREATE_STUDENT, createStudentDto)
       ).finished();
@@ -34,16 +33,29 @@ export class StudentService {
     }
   }
 
-  async findAll(options: FindOptionsWhere<Student>) {
-    return await this.studentRepository.find({
-      ...options,
-      order: {
-        firstName: 'ASC', // 'ASC' for ascending order
-      },
-    });
+  async findAll(
+    options: FindOptionsWhere<Student>,
+    paginationOptions: IPaginationOptions,
+  ) {
+    const queryBuilder = this.studentRepository.createQueryBuilder('student');
+
+    if (options.admissionSet) {
+      queryBuilder.where('student.admissionSet =:admissionSet', {
+        admissionSet: options.admissionSet,
+      });
+    }
+    if (options.option) {
+      queryBuilder.where('student.option =:option', {
+        option: options.option,
+      });
+    }
+    // Order by course code
+    queryBuilder.orderBy('student.firstName', 'ASC');
+    return pagination<Student>(queryBuilder, paginationOptions);
   }
 
   async findOne(options: FindOptionsWhere<Student>) {
+    console.log(options);
     const student = await this.studentRepository.findOneBy(options);
     if (!student)
       throw new NotFoundException(
