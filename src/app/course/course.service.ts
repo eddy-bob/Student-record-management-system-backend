@@ -45,7 +45,6 @@ export class CourseService {
   ) {
     // available queries are course and student
     const queryBuilder = this.courseRepository.createQueryBuilder('course');
-    console.log(options);
     if (options.id) {
       queryBuilder.where('course.id=:id', {
         id: options.id,

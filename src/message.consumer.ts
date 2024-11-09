@@ -32,11 +32,12 @@ export class MessageConsumer {
     const courses = await Promise.all(
       jobData.map(async (dto: CreateCourseDto) => {
         return {
-          ...jobData,
+          ...dto,
           unit: parseInt(dto.unit),
         };
       }),
     );
+
     const data = this.courseRepository.create(courses);
     return await this.courseRepository.save(data);
   }

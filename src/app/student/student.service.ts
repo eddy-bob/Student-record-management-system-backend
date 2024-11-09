@@ -14,6 +14,7 @@ import { Cache } from 'cache-manager';
 import { Inject } from '@nestjs/common';
 import pagination from 'src/utils/paginate';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
+import { Options } from 'src/types/student';
 @Injectable()
 export class StudentService {
   constructor(
@@ -45,9 +46,17 @@ export class StudentService {
       });
     }
     if (options.option) {
-      queryBuilder.where('student.option =:option', {
-        option: options.option,
-      });
+      const validOptions = [
+        Options.ELECTRONICS,
+        Options.POWER,
+        Options.TELECOM,
+        Options.NONE,
+      ] as any;
+      if (validOptions.includes(options.option)) {
+        queryBuilder.where('student.option =:option', {
+          option: options.option,
+        });
+      }
     }
     // Order by course code
     queryBuilder.orderBy('student.firstName', 'ASC');
@@ -67,16 +76,16 @@ export class StudentService {
   async update(id: string, updateStudentDto: UpdateStudentDto) {
     const isStudent = await this.findOne({ id });
     // delete cached students
-    await this.cacheManager.del(`student/${id}`);
-    await this.cacheManager.del(`all-students`);
+    // await this.cacheManager.del(`student/${id}`);
+    // await this.cacheManager.del(`all-students`);
     return await this.studentRepository.update(isStudent.id, updateStudentDto);
   }
 
   async remove(id: string) {
     const student = await this.findOne({ id });
     // delete cached students
-    await this.cacheManager.del(`student/${id}`);
-    await this.cacheManager.del(`all-students`);
+    // await this.cacheManager.del(`student/${id}`);
+    // await this.cacheManager.del(`all-students`);
     await this.studentRepository.delete(student.id);
     return new SuccessResponse(
       {},
