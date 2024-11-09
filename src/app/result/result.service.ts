@@ -29,7 +29,7 @@ export class ResultService {
   async create(createResultDto: CreateResultDto[]) {
     try {
       // delete cached results
-      await this.cacheManager.delete(`all-results`);
+      // await this.cacheManager.delete(`all-results`);
       return (await this.queue.add(CREATE_RESULT, createResultDto)).finished();
     } catch (error) {
       throw new HttpException(error.message, 500);
@@ -120,8 +120,8 @@ export class ResultService {
       score: parseInt(updateResultDto.score),
     });
     // delete cached results
-    await this.cacheManager.delete(`result/${id}`);
-    await this.cacheManager.delete(`all-results`);
+    // await this.cacheManager.delete(`result/${id}`);
+    // await this.cacheManager.delete(`all-results`);
     return updatedResult;
   }
 
@@ -129,8 +129,8 @@ export class ResultService {
     const result = await this.findOne(id);
     await this.resultRepository.delete(result.id);
     // delete cached results
-    await this.cacheManager.delete(`result/${id}`);
-    await this.cacheManager.delete(`all-results`);
+    // await this.cacheManager.delete(`result/${id}`);
+    // await this.cacheManager.delete(`all-results`);
     return new SuccessResponse({}, `Result with id ${id} deleted successfully`);
   }
 }
