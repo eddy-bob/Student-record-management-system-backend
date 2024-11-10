@@ -115,14 +115,14 @@ export class ResultService {
   async update(id: string, updateResultDto: UpdateResultDto) {
     const isResult = await this.findOne(id);
 
-    const updatedResult = await this.resultRepository.update(isResult.id, {
-      ...updateResultDto,
-      score: parseInt(updateResultDto.score),
-    });
+    if (updateResultDto.score) {
+      isResult.score = parseInt(updateResultDto.score);
+    }
+
     // delete cached results
     // await this.cacheManager.delete(`result/${id}`);
     // await this.cacheManager.delete(`all-results`);
-    return updatedResult;
+    return await this.resultRepository.save(isResult);
   }
 
   async remove(id: string) {
