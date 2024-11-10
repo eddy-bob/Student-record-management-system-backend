@@ -59,37 +59,37 @@ export class ResultService {
     queryBuilder.addSelect('student.lastName');
     queryBuilder.addSelect('student.middleName');
     if (options.course) {
-      queryBuilder.where('result.course =:courseId', {
+      queryBuilder.where('course.id =:courseId', {
         courseId: options.course,
       });
     }
     if (options.student) {
-      queryBuilder.andWhere('result.student =:studentId', {
+      queryBuilder.andWhere('student.id =:studentId', {
         studentId: options.student,
       });
     }
     if (options.courseCode) {
-      queryBuilder.andWhere('result.course.courseCode =:courseCode', {
+      queryBuilder.andWhere('course.courseCode =:courseCode', {
         courseCode: options.courseCode,
       });
     }
     if (options.regNumber) {
-      queryBuilder.andWhere('result.student.regNumber =:regNumber', {
+      queryBuilder.andWhere('student.regNumber =:regNumber', {
         regNumber: options.regNumber,
       });
     }
     if (options.semester) {
-      queryBuilder.andWhere('result.course.semester =:semester', {
-        Semester: options.semester,
+      queryBuilder.andWhere('course.semester =:semester', {
+        semester: options.semester,
       });
     }
     if (options.level) {
-      queryBuilder.andWhere('result.course.level =:level', {
+      queryBuilder.andWhere('course.level =:level', {
         level: options.level,
       });
     }
     if (options.option) {
-      queryBuilder.andWhere('result.course.option =:option', {
+      queryBuilder.andWhere('course.option =:option', {
         option: options.option,
       });
     }
