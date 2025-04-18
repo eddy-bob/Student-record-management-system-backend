@@ -20,13 +20,12 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
 import { CacheService } from '../common/services/cache.service';
 import { Options } from '../type';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('student')
 @UseGuards(RolesGuard)
 export class StudentController {
   constructor(
     private readonly studentService: StudentService,
-    @Inject(CACHE_MANAGER) private cacheService: CacheService,
+    private cacheService: CacheService,
   ) {}
 
   @Post()
@@ -61,7 +60,7 @@ export class StudentController {
     return this.studentService.findStudent(id);
   }
 
-  @Get('all')
+  @Get('')
   @Roles(Role.Super, Role.Exco, Role.Admin)
   findAll(
     @Query() paginationDto: PaginationDto,

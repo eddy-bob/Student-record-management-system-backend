@@ -3,10 +3,10 @@ import { OperatorService } from './operator.service';
 import { OperatorController } from './operator.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Operator } from './operator.entity';
-
+import { CacheService } from 'src/common/services/cache.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Operator])],
-  providers: [OperatorService],
+  providers: [OperatorService, CacheService],
   controllers: [OperatorController],
   exports: [OperatorService],
 })

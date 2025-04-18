@@ -57,7 +57,6 @@ export class CourseService {
   ): Promise<PaginatedResponse<Course>> {
     const { page = 1, limit = 10 } = paginationDto;
     const skip = (page - 1) * limit;
-
     const where: FindOptionsWhere<Course> = {};
 
     if (query) {
@@ -76,13 +75,12 @@ export class CourseService {
       skip,
       take: limit,
       where,
-      order: { createdAt: 'DESC' },
+      order: { level: 'ASC' },
     });
-
     return {
-      data,
+      items: data,
       meta: {
-        total,
+        totalPages: total,
         page,
         lastPage: Math.ceil(total / limit),
       },

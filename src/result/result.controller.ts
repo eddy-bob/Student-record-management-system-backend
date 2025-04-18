@@ -20,13 +20,12 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
 import { CacheService } from '../common/services/cache.service';
 import { Options, Level, Semester } from '../type';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('result')
 @UseGuards(RolesGuard)
 export class ResultController {
   constructor(
     private readonly resultService: ResultService,
-    @Inject(CACHE_MANAGER) private cacheService: CacheService,
+    private cacheService: CacheService,
   ) {}
 
   @Post()

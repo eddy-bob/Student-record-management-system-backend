@@ -8,7 +8,9 @@ import {
   Body,
   UseGuards,
   Query,
+  HttpCode,
   Inject,
+  HttpStatus,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { AddCourseDto } from './dto/add-course.dto';
@@ -26,7 +28,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 export class CourseController {
   constructor(
     private readonly courseService: CourseService,
-    @Inject(CACHE_MANAGER) private cacheService: CacheService,
+    private cacheService: CacheService,
   ) {}
 
   @Post()
@@ -36,7 +38,7 @@ export class CourseController {
     await this.cacheService.clearCache('/course');
     return course;
   }
-
+  @HttpCode(HttpStatus.OK)
   @Patch(':id')
   @Roles(Role.Super, Role.Admin, Role.Exco)
   async update(
@@ -44,10 +46,11 @@ export class CourseController {
     @Body() data: Partial<AddCourseDto>,
   ): Promise<Course> {
     const course = await this.courseService.updateCourse(id, data);
+    console.log(this.cacheService);
     await this.cacheService.clearCacheByPattern(`/course/${id}|/course\\?`);
     return course;
   }
-
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   @Roles(Role.Super, Role.Admin)
   async delete(@Param('id') id: string): Promise<void> {
@@ -55,15 +58,17 @@ export class CourseController {
     await this.cacheService.clearCacheByPattern(`/course/${id}|/course\\?`);
   }
 
+  @HttpCode(HttpStatus.FOUND)
   @Get(':id')
   @Roles(Role.Super, Role.Exco, Role.Admin)
-  findOne(@Param('id') id: string): Promise<Course> {
-    return this.courseService.findCourse(id);
+  async findOne(@Param('id') id: string): Promise<Course> {
+    return await this.courseService.findCourse(id);
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get()
   @Roles(Role.Super, Role.Exco, Role.Admin)
-  findAll(
+  async findAll(
     @Query() paginationDto: PaginationDto,
     @Query('option') option?: Options,
     @Query('level') level?: Level,
@@ -75,6 +80,6 @@ export class CourseController {
       ...(semester && { semester }),
     };
 
-    return this.courseService.findAllCourses(paginationDto, query);
+    return await this.courseService.findAllCourses(paginationDto, query);
   }
 }

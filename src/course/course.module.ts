@@ -4,10 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Course } from './course.entity';
 import { CourseService } from './course.service';
 import { CourseController } from './course.controller';
+import { CacheService } from 'src/common/services/cache.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Course])],
-  providers: [CourseService],
+  providers: [CourseService, CacheService],
   controllers: [CourseController],
   exports: [CourseService],
 })

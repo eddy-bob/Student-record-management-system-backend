@@ -103,9 +103,9 @@ export class ResultService {
     });
 
     return {
-      data,
+      items: data,
       meta: {
-        total,
+        totalPages: total,
         page,
         lastPage: Math.ceil(total / limit),
       },

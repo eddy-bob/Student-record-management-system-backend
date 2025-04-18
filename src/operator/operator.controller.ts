@@ -22,13 +22,12 @@ import { Role } from '../type';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('operator')
 @UseGuards(RolesGuard)
 export class OperatorController {
   constructor(
     private readonly operatorService: OperatorService,
-    @Inject(CACHE_MANAGER) private cacheService: CacheService,
+    private cacheService: CacheService,
   ) {}
 
   @Post()
