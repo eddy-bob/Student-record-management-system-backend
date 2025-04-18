@@ -8,6 +8,7 @@ import {
   Query,
   Body,
   UseGuards,
+  Inject,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { AddStudentDto } from './dto/add-student.dto';
@@ -19,13 +20,13 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
 import { CacheService } from '../common/services/cache.service';
 import { Options } from '../type';
-
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('student')
 @UseGuards(RolesGuard)
 export class StudentController {
   constructor(
     private readonly studentService: StudentService,
-    private readonly cacheService: CacheService,
+    @Inject(CACHE_MANAGER) private cacheService: CacheService,
   ) {}
 
   @Post()

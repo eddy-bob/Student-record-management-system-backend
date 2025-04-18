@@ -9,6 +9,7 @@ export class AuthController {
   @Public()
   @Post('signin')
   async signin(@Body() data: SigninDto) {
+    console.log('running');
     return this.authService.signin(data);
   }
 }

@@ -8,6 +8,7 @@ import {
   Body,
   Query,
   UseGuards,
+  Inject,
 } from '@nestjs/common';
 import { FindOptionsWhere } from 'typeorm';
 import { OperatorService } from './operator.service';
@@ -21,13 +22,13 @@ import { Role } from '../type';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
-
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('operator')
 @UseGuards(RolesGuard)
 export class OperatorController {
   constructor(
     private readonly operatorService: OperatorService,
-    private readonly cacheService: CacheService,
+    @Inject(CACHE_MANAGER) private cacheService: CacheService,
   ) {}
 
   @Post()

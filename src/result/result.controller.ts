@@ -8,6 +8,7 @@ import {
   Body,
   UseGuards,
   Query,
+  Inject,
 } from '@nestjs/common';
 import { ResultService } from './result.service';
 import { Result } from './result.entity';
@@ -19,13 +20,13 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
 import { CacheService } from '../common/services/cache.service';
 import { Options, Level, Semester } from '../type';
-
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('result')
 @UseGuards(RolesGuard)
 export class ResultController {
   constructor(
     private readonly resultService: ResultService,
-    private readonly cacheService: CacheService,
+    @Inject(CACHE_MANAGER) private cacheService: CacheService,
   ) {}
 
   @Post()

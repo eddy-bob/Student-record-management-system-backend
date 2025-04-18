@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { Gender, Options } from '../type';
+import { Gender, Options } from '../../type';
 
 export class AddStudentDto {
   @IsNotEmpty()
