@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { OperatorService } from '../operator/operator.service'; // Adjust the path as necessary
-import { Operator } from '../operator/operator.entity'; // Adjust the path as necessary
+import { OperatorService } from '../operator/operator.service';
+import { Operator } from '../operator/operator.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private operatorService: OperatorService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'your_secret_key', // Use the same secret as in JwtModule
+      secretOrKey: process.env.JWT_SECRET,
     });
   }
 

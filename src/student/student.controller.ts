@@ -61,7 +61,7 @@ export class StudentController {
     return this.studentService.findStudent(id);
   }
 
-  @Get()
+  @Get('all')
   @Roles(Role.Super, Role.Exco, Role.Admin)
   findAll(
     @Query() paginationDto: PaginationDto,

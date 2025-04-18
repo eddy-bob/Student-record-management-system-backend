@@ -14,10 +14,11 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) {
       return true; // If no roles are specified, allow access
     }
+    console.log('ran');
     const request = context.switchToHttp().getRequest();
-    const user = request.user; // Assuming user is set in request by auth guard
-
+    const user = request.user;
+    console.log(user, console.log(requiredRoles));
     // Check if user exists and has the required role
-    return user && requiredRoles.some((role) => user.roles?.includes(role));
+    return user && requiredRoles.includes(user.role?);
   }
 }

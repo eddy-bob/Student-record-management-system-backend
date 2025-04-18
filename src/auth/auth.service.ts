@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { Operator } from '../operator/operator.entity';
 import { SigninDto } from './dto/signin.dto';
 import { HashUtil } from '../common/utils/hash.util';
-
+import { SuccessResponse } from 'src/common/utils/success-response';
 @Injectable()
 export class AuthService {
   constructor(
@@ -14,12 +14,13 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signin(data: SigninDto): Promise<{ accessToken: string }> {
+  async signin(
+    data: SigninDto,
+  ): Promise<SuccessResponse<{ user: Operator; accessToken: string }>> {
     const operator = await this.operatorRepository.findOne({
       where: { email: data.email },
-      select: ['id', 'email', 'password', 'role'], // Make sure to select password field
+      select: ['id', 'email', 'password', 'role', 'firstName', 'lastName'],
     });
-
     if (
       !operator ||
       !(await HashUtil.compare(data.password, operator.password))
@@ -32,8 +33,12 @@ export class AuthService {
       email: operator.email,
       role: operator.role,
     };
-    return {
-      accessToken: this.jwtService.sign(payload),
-    };
+    return new SuccessResponse(
+      {
+        accessToken: this.jwtService.sign(payload),
+        user: { ...operator },
+      },
+      'Sign in successful',
+    );
   }
 }

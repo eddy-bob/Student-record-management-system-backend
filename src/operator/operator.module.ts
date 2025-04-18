@@ -8,5 +8,6 @@ import { Operator } from './operator.entity';
   imports: [TypeOrmModule.forFeature([Operator])],
   providers: [OperatorService],
   controllers: [OperatorController],
+  exports: [OperatorService],
 })
 export class OperatorModule {}

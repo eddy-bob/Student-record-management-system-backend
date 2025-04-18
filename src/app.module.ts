@@ -9,11 +9,23 @@ import { ResultModule } from './result/result.module';
 import { StudentModule } from './student/student.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { AuthGuard } from './common/guards/auth.guard';
+import { AuthThrottleGuard } from './auth/auth-throttle.guard';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './auth/jwt.strategy';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // so it's available app-wide
+    }),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: configService.get<string>('JWT_EXPIRE') }, // Adjust expiration as needed
+      }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -45,6 +57,15 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    {
+      provide: APP_GUARD,
+      useClass: AuthThrottleGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard, // Apply the throttle guard globally for this module
+    },
+    JwtStrategy,
   ],
 })
 export class AppModule {}
