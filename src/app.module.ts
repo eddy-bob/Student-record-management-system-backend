@@ -14,6 +14,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { AuthThrottleGuard } from './auth/auth-throttle.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './auth/jwt.strategy';
+import { CacheService } from './common/services/cache.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,9 +43,16 @@ import { JwtStrategy } from './auth/jwt.strategy';
       }),
     }),
     ThrottlerModule.forRoot(),
-    CacheModule.register({
-      ttl: 60000 * 5, // milliseconds
-      isGlobal: true,
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService, cacheService: CacheService) => ({
+        ttl: 60000 * 5, // milliseconds
+        isGlobal: true,
+        store: config.get<string>('STORE'),
+        host: config.get<string>('STORE_HOST'),
+        port: config.get<number>('STORE_PORT'),
+      }),
     }),
     AuthModule,
     CourseModule,
@@ -66,6 +74,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
       useClass: AuthGuard, // Apply the throttle guard globally for this module
     },
     JwtStrategy,
+    CacheService,
   ],
 })
 export class AppModule {}

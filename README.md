@@ -58,6 +58,11 @@ RATE_LIMIT_WINDOW_MS=120000
 # JWT
 JWT_SECRET=
 JWT_EXPIRE=
+
+# Store
+STORE=redisStore
+STORE_PORT=6379
+ STORE_HOST= localhost
 ```
 
 ### 4. Run the App

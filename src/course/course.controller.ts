@@ -22,7 +22,6 @@ import { PaginationDto } from '../common/dto/pagination.dto';
 import { PaginatedResponse } from '../common/interfaces/pagination.interface';
 import { CacheService } from '../common/services/cache.service';
 import { Options, Level, Semester } from '../type';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 @Controller('course')
 @UseGuards(RolesGuard)
 export class CourseController {
@@ -46,7 +45,6 @@ export class CourseController {
     @Body() data: Partial<AddCourseDto>,
   ): Promise<Course> {
     const course = await this.courseService.updateCourse(id, data);
-    console.log(this.cacheService);
     await this.cacheService.clearCacheByPattern(`/course/${id}|/course\\?`);
     return course;
   }

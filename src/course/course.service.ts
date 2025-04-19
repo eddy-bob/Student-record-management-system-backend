@@ -24,8 +24,8 @@ export class CourseService {
     id: string,
     data: Partial<UpdateCourseDto>,
   ): Promise<Course> {
-    const course = await this.findCourse(id);
-    await this.courseRepository.update(course.id, data);
+    await this.findCourse(id);
+    await this.courseRepository.update(id, data);
     const updatedCourse = await this.courseRepository.findOne({
       where: { id },
     });
